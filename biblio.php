@@ -24,27 +24,62 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-add_action( 'admin_menu', 'biblio_setup' );
+define('BIBLIO_PLUGIN_URL', WP_PLUGIN_URL.'/biblio/');
 
-function biblio_setup() {
-  $biblio = new Biblio();
+include('classes/class.biblio.php');
+include('classes/menu_setup.php');
+
+$biblio = new Biblio();
+$ms = new Menu();
+
+add_action('admin_menu', 'plugin_admin_add_page');
+function plugin_admin_add_page() {
+  add_options_page('Custom Plugin Page', 'Custom Plugin Menu', 'manage_options', 'plugin', 'plugin_options_page');
 }
 
-class Biblio {
 
-  function __construct() {
-    add_menu_page( 'Biblio - What have you read?', 'Biblio', 'manage_options', 'bilio-iden', array($this, 'plugin_options'));
-  }
+//if ( is_admin() ){ // admin actions
+//  add_action( 'admin_menu', 'biblio_setup' );
+//  add_action( 'admin_init', 'register_mysettings' );
+//} else {
+//  // non-admin enqueues, actions, and filters
+//}
 
-  public function plugin_options()
-  {
-    if ( !current_user_can( 'manage_options' ) )  {
-      wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-    }
-    echo '<div class="wrap">';
-    echo '<p>Here is where the form would go if I actually had options.</p>';
-    echo '</div>';
-  }
-
-}
+function plugin_options_page() {
 ?>
+<div>
+<h2>My custom plugin</h2>
+Options relating to the Custom Plugin.
+<form action="options.php" method="post">
+<?php settings_fields('plugin_options'); ?>
+<?php do_settings_sections('plugin'); ?>
+
+<input name="Submit" type="submit" value="<?php esc_attr_e('Save Changes'); ?>" />
+</form></div>
+
+<?php
+}
+
+add_action('admin_init', 'plugin_admin_init');
+function plugin_admin_init(){
+  register_setting( 'plugin_options', 'plugin_options', 'plugin_options_validate' );
+  add_settings_section('plugin_main', 'Main Settings', 'plugin_section_text', 'plugin');
+  add_settings_field('plugin_text_string', 'Plugin Text Input', 'plugin_setting_string', 'plugin', 'plugin_main');
+}
+
+function plugin_section_text() {
+  echo '<p>Main description of this section here.</p>';
+}
+
+function plugin_setting_string() {
+  $options = get_option('plugin_options');
+  echo "<input id='plugin_text_string' name='plugin_options[text_string]' size='40' type='text' value='{$options['text_string']}' />";
+}
+
+function plugin_options_validate($input) {
+  $newinput['text_string'] = trim($input['text_string']);
+  if(!preg_match('/^[a-z0-9]{32}$/i', $newinput['text_string'])) {
+    $newinput['text_string'] = '';
+  }
+  return $newinput;
+}
