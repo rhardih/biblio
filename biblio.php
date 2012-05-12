@@ -24,6 +24,32 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+global $biblio_db_version;
+$biblio_db_version = "1.0";
+
+function biblio_install() {
+  global $wpdb;
+  global $biblio_db_version;
+
+  $table_name = $wpdb->prefix . "biblio";
+
+  $sql = "CREATE TABLE $table_name (
+    id mediumint(9) NOT NULL AUTO_INCREMENT,
+    created_at datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+    updated_at datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+    name tinytext NOT NULL,
+    text text NOT NULL,
+    url VARCHAR(255) DEFAULT '',
+    UNIQUE KEY id (id)
+  );";
+  require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+  dbDelta($sql);
+
+  add_option("biblio_db_version", $biblio_db_version);
+}
+
+register_activation_hook(__FILE__,'biblio_install');
+
 define('BIBLIO_PLUGIN_URL', WP_PLUGIN_URL.'/biblio/');
 
 include('classes/class.biblio.php');
@@ -33,6 +59,7 @@ $biblio = new Biblio();
 $ms = new Menu();
 
 add_action('admin_menu', 'plugin_admin_add_page');
+
 function plugin_admin_add_page() {
   add_options_page('Custom Plugin Page', 'Custom Plugin Menu', 'manage_options', 'plugin', 'plugin_options_page');
 }
@@ -47,20 +74,29 @@ function plugin_admin_add_page() {
 
 function plugin_options_page() {
 ?>
-<div>
-<h2>My custom plugin</h2>
-Options relating to the Custom Plugin.
-<form action="options.php" method="post">
-<?php settings_fields('plugin_options'); ?>
-<?php do_settings_sections('plugin'); ?>
 
-<input name="Submit" type="submit" value="<?php esc_attr_e('Save Changes'); ?>" />
-</form></div>
 
+<pre>
+  <?php print_r($_POST); ?>
+</pre>
+
+<div class="wrap">
+  <h2>Biblio</h2>
+  <h3>What are you reading?</h3>
+  <h3>Read material</h3>
+
+  <form action="options.php" method="post">
+    <?php do_settings_sections('plugin'); ?>
+    <?php settings_fields('plugin_options'); ?>
+    <p><input type="text" name="search" placeholder="URL" /></p>
+    <?php submit_button("Search"); ?>
+  </form>
+</div>
 <?php
 }
 
 add_action('admin_init', 'plugin_admin_init');
+
 function plugin_admin_init(){
   register_setting( 'plugin_options', 'plugin_options', 'plugin_options_validate' );
   add_settings_section('plugin_main', 'Main Settings', 'plugin_section_text', 'plugin');
