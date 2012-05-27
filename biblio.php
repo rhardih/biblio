@@ -49,6 +49,17 @@ function biblio_install() {
 
 register_activation_hook(__FILE__,'biblio_install');
 
+function check_install() {
+  $biblio_db_version = get_option('biblio_db_version');
+  if (!empty($biblio_db_version)) {
+    echo "<h1>$biblio_db_version</h1>";
+  } else {
+    echo "<h1>Empty</h1>";
+  }
+}
+
+//check_install();
+
 define('BIBLIO_PLUGIN_URL', WP_PLUGIN_URL.'/biblio/');
 
 include('classes/class.biblio.php');
