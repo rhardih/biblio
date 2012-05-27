@@ -35,10 +35,9 @@ function biblio_install() {
 
   $sql = "CREATE TABLE $table_name (
     id mediumint(9) NOT NULL AUTO_INCREMENT,
-    created_at datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-    updated_at datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-    name tinytext NOT NULL,
-    text text NOT NULL,
+    created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    name tinytext NOT NULL DEFAULT '',
+    text text NOT NULL DEFAULT '',
     url VARCHAR(255) DEFAULT '',
     UNIQUE KEY id (id)
   );";
