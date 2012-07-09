@@ -22,7 +22,10 @@ global $dh;
           <?php } ?>
         </div>
         <p>
-        <?php $_GET['book'] = $reading->id  ?>
+        <?php
+          $_GET['book'] = $reading->id;
+          $_GET['action'] = 'show';
+        ?>
         <a href="?<?php echo http_build_query($_GET) ?>">Notes</a>
         </p>
       </div>
