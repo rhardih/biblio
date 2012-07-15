@@ -24,30 +24,62 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-global $biblio_db_version;
-$biblio_db_version = "1.0";
+global $wpdb;
 
-function biblio_install() {
-  global $wpdb;
-  global $biblio_db_version;
+define('BIBLIO_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('BASE_DIR', dirname(__FILE__).'/');
+define('TEMPLATES_DIR', BASE_DIR .'templates/');
+define('CLASS_DIR', BASE_DIR .'classes/');
+define('INTERFACE_DIR', BASE_DIR .'interfaces/');
+define('TEST_DIR', BASE_DIR .'test/');
+define('PLUGIN_NAME', 'biblio');
+define('DB_VERSION_OPTION', PLUGIN_NAME . '_db_version');
+define('DB_TABLE_NAME', $wpdb->prefix . PLUGIN_NAME);
 
-  $table_name = $wpdb->prefix . "biblio";
+foreach (glob(BASE_DIR . "classes/*.php") as $filename) { include $filename; }
 
-  $sql = "CREATE TABLE $table_name (
-    id mediumint(9) NOT NULL AUTO_INCREMENT,
-    created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    name tinytext NOT NULL DEFAULT '',
-    text text NOT NULL DEFAULT '',
-    url VARCHAR(255) DEFAULT '',
-    UNIQUE KEY id (id)
-  );";
-  require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-  dbDelta($sql);
+global $dh;
+$dh = new DatabaseHandler($wpdb, DB_TABLE_NAME);
 
-  add_option("biblio_db_version", $biblio_db_version);
+function var_to_str($in)
+{
+   if(is_bool($in))
+   {
+      if($in)
+         return "true";
+      else
+         return "false";
+   }
+   else
+      return $in;
 }
 
-register_activation_hook(__FILE__,'biblio_install');
+function biblio_activate() {
+  global $dh;
+
+  $db_version = get_option(DB_VERSION_OPTION);
+  if (is_bool($db_version)) { // Fresh install, value false
+    add_option(DB_VERSION_OPTION, 0);
+    $dh->create();
+    error_log($dh->version());
+    $dh->migrate(0, $dh->version());
+  } else { // Update or reactivation
+    error_log($dh->version());
+    error_log($db_version);
+    $dh->migrate(intval($db_version), $dh->version());
+  }
+}
+
+
+function biblio_deactivate() {
+  global $dh;
+  delete_option("biblio_db_version");
+  $dh->destroy();
+}
+
+register_activation_hook(__FILE__, 'biblio_activate');
+register_deactivation_hook(__FILE__, 'biblio_deactivate');
+
 
 function check_install() {
   $biblio_db_version = get_option('biblio_db_version');
@@ -60,72 +92,13 @@ function check_install() {
 
 //check_install();
 
-define('BIBLIO_PLUGIN_URL', WP_PLUGIN_URL.'/biblio/');
 
-include('classes/class.biblio.php');
-include('classes/menu_setup.php');
+new Menu();
 
-$biblio = new Biblio();
-$ms = new Menu();
-
-add_action('admin_menu', 'plugin_admin_add_page');
-
-function plugin_admin_add_page() {
-  add_options_page('Custom Plugin Page', 'Custom Plugin Menu', 'manage_options', 'plugin', 'plugin_options_page');
+// Add custom css
+function add_custom_css() {
+    $url = BIBLIO_PLUGIN_URL . '/styles.css';
+    echo "<link rel='stylesheet' type='text/css' href='$url' />\n";
 }
+add_action('admin_head', 'add_custom_css');
 
-
-//if ( is_admin() ){ // admin actions
-//  add_action( 'admin_menu', 'biblio_setup' );
-//  add_action( 'admin_init', 'register_mysettings' );
-//} else {
-//  // non-admin enqueues, actions, and filters
-//}
-
-function plugin_options_page() {
-?>
-
-
-<pre>
-  <?php print_r($_POST); ?>
-</pre>
-
-<div class="wrap">
-  <h2>Biblio</h2>
-  <h3>What are you reading?</h3>
-  <h3>Read material</h3>
-
-  <form action="options.php" method="post">
-    <?php do_settings_sections('plugin'); ?>
-    <?php settings_fields('plugin_options'); ?>
-    <p><input type="text" name="search" placeholder="URL" /></p>
-    <?php submit_button("Search"); ?>
-  </form>
-</div>
-<?php
-}
-
-add_action('admin_init', 'plugin_admin_init');
-
-function plugin_admin_init(){
-  register_setting( 'plugin_options', 'plugin_options', 'plugin_options_validate' );
-  add_settings_section('plugin_main', 'Main Settings', 'plugin_section_text', 'plugin');
-  add_settings_field('plugin_text_string', 'Plugin Text Input', 'plugin_setting_string', 'plugin', 'plugin_main');
-}
-
-function plugin_section_text() {
-  echo '<p>Main description of this section here.</p>';
-}
-
-function plugin_setting_string() {
-  $options = get_option('plugin_options');
-  echo "<input id='plugin_text_string' name='plugin_options[text_string]' size='40' type='text' value='{$options['text_string']}' />";
-}
-
-function plugin_options_validate($input) {
-  $newinput['text_string'] = trim($input['text_string']);
-  if(!preg_match('/^[a-z0-9]{32}$/i', $newinput['text_string'])) {
-    $newinput['text_string'] = '';
-  }
-  return $newinput;
-}
