@@ -1,8 +1,8 @@
 <?php
 
 global $wpdb;
-$table_name = $wpdb->prefix . "biblio";
-$wpdb->query("DROP TABLE IF EXISTS $table_name;");
+$dh = new DatabaseHandler($wpdb, DB_TABLE_NAME);
+$dh->destroy();
 
 delete_option( 'biblio_db_version' );
 
