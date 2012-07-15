@@ -1,0 +1,51 @@
+@mixin ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+
+.group:before,
+.group:after {
+  content:"";
+  display:table;
+}
+
+.group:after {
+  clear:both;
+}
+
+.group {
+  zoom:1; /* For IE 6/7 (trigger hasLayout) */
+}
+
+$cell_width: 200px;
+$columns: 4;
+
+div#biblio_wrapper {
+  div#readings {
+    width: ($columns * $cell_width);
+    //border: 2px solid red;
+    div.reading {
+      border: 1px solid #f2f2f2;
+      width: $cell_width;
+      float: left;
+      text-align: center;
+      margin: 0px 20px 20px 0px;
+      padding: 0px 20px 0px 20px;
+      h4 {
+        @include ellipsis;
+      }
+      img {
+        max-width: 150px;
+        max-height: 150px;
+      }
+      div.placeholder {
+        display: table-cell;
+        vertical-align: middle;
+        height: 150px;
+        width: $cell_width;
+      }
+    }
+  }
+}
