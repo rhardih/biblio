@@ -13,9 +13,6 @@ class DatabaseHandler
     $this->db = $database;
     $this->table = $table;
     $this-> migrations = array(
-      "ALTER TABLE $this->table ADD email VARCHAR(60);",
-      "ALTER TABLE $this->table ADD phone VARCHAR(60);",
-      "ALTER TABLE $this->table ADD area_code VARCHAR(60);"
     );
   }
 
@@ -42,9 +39,10 @@ class DatabaseHandler
     $sql = "CREATE TABLE $this->table (
       id MEDIUMINT(9) NOT NULL AUTO_INCREMENT,
       created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      name TINYTEXT NOT NULL DEFAULT '',
-      text TEXT NOT NULL DEFAULT '',
-      url VARCHAR(255) DEFAULT '',
+      author VARCHAR(255) NOT NULL DEFAULT '',
+      title VARCHAR(255) NOT NULL DEFAULT '',
+      notes TEXT NOT NULL DEFAULT '',
+      url VARCHAR(2048) NOT NULL DEFAULT '',
       UNIQUE KEY id (id)
     ) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
