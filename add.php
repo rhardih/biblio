@@ -2,25 +2,19 @@
 
 require '../../../wp-config.php';
 
-check_admin_referer('biblio-add');
+$siteurl = get_option('siteurl');
 
-function add_item() {
+error_log(print_r($_POST, true));
+
+if ( !empty($_POST) && check_admin_referer('biblio-add','name_of_nonce_field') )
+{
+  $dh->create_reading(
+    $_POST['book_title'],
+    $_POST['author'],
+    $_POST['url']
+  );
+  wp_redirect($siteurl . "/wp-admin/admin.php?page=biblio_main");
+  exit;
 }
-
-if ( !empty($_POST['url']) ) {
-  // Save the url to the database here
-  global $wpdb;
-  $table_name = $wpdb->prefix . "biblio";
-  $sql = "INSERT INTO $table_name " .
-         "VALUES ();";
-  echo 'url';
-} elseif ( !empty($_POST['isbn']) ) {
-  // A book isbn has been sent
-  echo 'isbn';
-}
-
-wp_redirect(get_option('siteurl') . "/wp-admin/admin.php?page=biblio");
-exit;
-
 ?>
 
