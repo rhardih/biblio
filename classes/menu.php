@@ -40,15 +40,15 @@ class Menu
   }
 
   public function main_page() {
-    load_template(TEMPLATES_DIR . "test.php");
+    load_template(TEMPLATES_DIR . 'read.php');
   }
 
   public function test_page() {
-    load_template(TEST_DIR . "database_handler_test.php");
+    load_template(TEST_DIR . 'database_handler_test.php');
   }
 
   public function notes_page() {
-    load_template(TEMPLATES_DIR . "notes.php");
+    load_template(TEMPLATES_DIR . 'notes.php');
   }
 }
 ?>
