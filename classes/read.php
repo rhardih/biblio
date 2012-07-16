@@ -7,6 +7,18 @@ class Read extends DatabaseResource
   const Inactive = 1;
   const Done     = 2;
 
+  function __construct($arg) {
+    if (is_int($arg)) { // id
+      parent::__construct($arg);
+    } elseif (is_array($arg)) {
+      foreach ($arg as $attribute => $value) {
+        $this[$attribute] = $value;
+      }
+      parent::__construct();
+    }
+    error_log(print_r((array)$this, true));
+  }
+
   // Public: returns all readings of certain status
   //
   // $status - one of (Read::Active, Read::Inactive, Read::Done)
