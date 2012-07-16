@@ -102,3 +102,14 @@ function add_custom_css() {
 }
 add_action('admin_head', 'add_custom_css');
 
+// Utility methods
+function error($message) {
+  echo "<div class=\"error\"><p>$message</p></div>";
+}
+
+function notice($message) {
+  echo "<div class=\"updated\"><p>$message</p></div>";
+}
+
+
+
