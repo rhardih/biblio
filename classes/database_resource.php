@@ -2,7 +2,6 @@
 
 class DatabaseResource extends ArrayObject {
 
-  var $name;
   var $id;
 
   var $is_valid = false;
@@ -13,7 +12,6 @@ class DatabaseResource extends ArrayObject {
     global $wpdb;
     $this->wpdb = $wpdb;
 
-    $this->name = $name;
     if ($id) {
       $this->id = $id;
       $this->read();
@@ -54,15 +52,7 @@ class DatabaseResource extends ArrayObject {
       &$tmp
     );
 
-    $sql = sprintf(
-      "UPDATE %s SET %s WHERE id = %s;",
-      DB_TABLE_NAME,
-      join(', ', $tmp),
-      $this->id
-    );
-    error_log($sql);
-
-    return $res = $this->wpdb->update(
+    return $this->wpdb->update(
       DB_TABLE_NAME,
       $params,
       array('id' => $this->id)
