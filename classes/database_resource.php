@@ -21,16 +21,7 @@ class DatabaseResource extends ArrayObject {
   }
 
   public function create() {
-    foreach ($this as $attribute => $value) {
-      $attributes[] = $attribute;
-      $values[] = "'$value'";
-    }
-    $this->sql = sprintf(
-      'INSERT INTO %s (%s) VALUES (%s)',
-      DB_TABLE_NAME,
-      join(',', $attributes),
-      join(',', $values)
-    );
+    return $this->wpdb->insert(DB_TABLE_NAME, (array)$this);
   }
 
   public function read() {
