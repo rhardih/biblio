@@ -2,10 +2,10 @@
 
 class Read extends DatabaseResource
 {
-    //public function __construct($id)
-    //{
-    //  parent::__construct($id);
-    //}
+
+  const Active   = 0;
+  const Inactive = 1;
+  const Done     = 2;
 
   // Public: returns all readings of certain status
   //
