@@ -37,13 +37,14 @@ class DatabaseHandler
   // Returns void.
   public function create() {
     $sql = "CREATE TABLE $this->table (
-      id MEDIUMINT(9) NOT NULL AUTO_INCREMENT,
+      id MEDIUMINT(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
       created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       author VARCHAR(255) NOT NULL DEFAULT '',
       title VARCHAR(255) NOT NULL DEFAULT '',
       notes TEXT NOT NULL DEFAULT '',
       url VARCHAR(2048) NOT NULL DEFAULT '',
-      UNIQUE KEY id (id)
+      status TINYINT NOT NULL DEFAULT 0,
+      CONSTRAINT TitleAuthor UNIQUE (title, author)
     ) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
     return $this->db->query($sql);
