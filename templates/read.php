@@ -80,8 +80,9 @@ if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
         </tr>
       </tbody>
     </table>
+    <input type="hidden" name="action" value="create" />
 <?php
-wp_nonce_field('add-read', 'add_wpnonce');
+wp_nonce_field('read', 'biblio_nonce');
 submit_button('Submit');
 ?>
   </form>
@@ -109,12 +110,19 @@ submit_button('Submit');
             </div>
             <?php } ?>
           </div>
-          <p class="actions">
-          <a href="<?php echo http_build_query($_GET) ?>">Finish</a>
-          <a href="<?php echo http_build_query($_GET) ?>">Pause</a>
-          <a href="<?php echo http_build_query($_GET) ?>">Notes</a>
-          <a href="<?php echo http_build_query($_GET) ?>">Delete</a>
-          </p>
+          <div class="actions">
+            <a href="<?php echo http_build_query($_GET) ?>">Finish</a>
+            <a href="<?php echo http_build_query($_GET) ?>">Pause</a>
+            <a href="<?php echo http_build_query($_GET) ?>">Notes</a>
+            <form action="?page=biblio_main" method="post">
+              <input type="hidden" name="action" value="delete" />
+              <a class="delete" href="" data-title="<?php echo $reading->title; ?>" data-author="<?php echo $reading->author; ?>">
+                Delete
+              </a>
+              <input type="hidden" name="id" value="<?php echo $reading->id ?>" />
+              <?php wp_nonce_field('read', 'biblio_nonce'); ?>
+            </form>
+          </div>
         </div>
       </div>
       <?php } ?>
