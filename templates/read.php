@@ -1,7 +1,8 @@
 <?php
 
-if ( $_POST && check_admin_referer('add-read', 'add_wpnonce') )
-{
+echo '<pre>' . print_r($_POST, true) . '</pre>';
+
+function handle_create() {
   if (!$_POST['title']) {
     error('<b>Title</b> cannot be empty.');
   } else {
