@@ -87,11 +87,16 @@ div.readings_wrapper {
           width: $cell_width;
         }
 
-        p.actions {
+        div.actions {
           position: absolute;
           bottom: 0;
           left: 0;
           width: 100%;
+          padding: 10px 0px;
+
+          form {
+            display: inline;
+          }
         }
       }
     }
