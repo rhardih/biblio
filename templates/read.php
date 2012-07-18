@@ -54,7 +54,7 @@ if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
             <label for="book_title">Title*</label>
           </th>
           <td>
-            <input id="book_title" type="text" class="regular-text" name="title">
+            <input id="book_title" type="text" class="regular-text" name="title" value="<?php echo $_POST["title"]; ?>">
           </td>
         </tr>
         <tr valign="top">
@@ -62,7 +62,7 @@ if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
             <label for="author">Author</label>
           </th>
           <td>
-            <input id="author" type="text" class="regular-text" name="author">
+            <input id="author" type="text" class="regular-text" name="author" value="<?php echo $_POST["author"]; ?>">
           </td>
         </tr>
         <tr valign="top">
@@ -70,7 +70,7 @@ if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
             <label for="url">URL</label>
           </th>
           <td>
-            <input id="url" type="text" class="regular-text" name="url">
+            <input id="url" type="text" class="regular-text" name="url" value="<?php echo $_POST["url"]; ?>">
           </td>
         </tr>
         <tr>
