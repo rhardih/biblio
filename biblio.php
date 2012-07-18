@@ -102,6 +102,13 @@ function add_custom_css() {
 }
 add_action('admin_head', 'add_custom_css');
 
+// Add custom js
+function add_custom_js() {
+    $url = BIBLIO_PLUGIN_URL . '/scripts.js';
+    echo "<script type=\"text/javascript\" src=\"$url\"></script>";
+}
+add_action('admin_head', 'add_custom_js');
+
 // Utility methods
 function error($message) {
   echo "<div class=\"error\"><p>$message</p></div>";
