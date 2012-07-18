@@ -19,6 +19,24 @@ if ( $_POST && check_admin_referer('add-read', 'add_wpnonce') )
   }
 }
 
+function handle_delete() {
+  notice('Deleted succesfully!');
+}
+
+if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
+{
+  switch ($_POST['action']) {
+  case 'create':
+    handle_create();
+    break;
+  case "delete":
+    handle_delete();
+    break;
+  default:
+    error('Unknown action.');
+  }
+}
+
 ?>
 
 <div class="wrap">
