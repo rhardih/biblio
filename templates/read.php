@@ -38,8 +38,8 @@ function handle_update() {
   if ($read->is_valid) {
     $read['status'] = $_POST['status'];
     if ($read->update()) {
-      $title_author = '<b>' . $read['title'] . '</b> by ' . $read['author']);
-      notice("Updated status sucessfully for $title_author."
+      $title_author = '<b>' . $read['title'] . '</b> by ' . $read['author'];
+      notice("Status updated sucessfully for $title_author.");
     } else {
       error("An error occured updating $title_author");
     }
@@ -54,6 +54,9 @@ if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
     break;
   case "delete":
     handle_delete();
+    break;
+  case "update":
+    handle_update();
     break;
   default:
     error('Unknown action.');
