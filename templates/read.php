@@ -22,10 +22,14 @@ function handle_create() {
 
 function handle_delete() {
   $read = new Read(intval($_POST['id']));
-  if($read->delete()) {
-    notice('Deleted succesfully!');
+  if ($read->is_valid) {
+    if($read->delete()) {
+      notice('Deleted succesfully!');
+    } else {
+      error('An error occured deleting <b>' . $read['title'] . '</b> by ' . $read['author']);
+    }
   } else {
-    error('An error occured deleting <b>' . $read['title'] . '</b> by ' . $read['author']);
+    error('No Read by that id.');
   }
 }
 
