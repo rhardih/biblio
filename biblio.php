@@ -31,7 +31,6 @@ define('BASE_DIR', dirname(__FILE__).'/');
 define('TEMPLATES_DIR', BASE_DIR .'templates/');
 define('CLASS_DIR', BASE_DIR .'classes/');
 define('INTERFACE_DIR', BASE_DIR .'interfaces/');
-define('TEST_DIR', BASE_DIR .'test/');
 define('PLUGIN_NAME', 'biblio');
 define('DB_VERSION_OPTION', PLUGIN_NAME . '_db_version');
 define('DB_TABLE_NAME', $wpdb->prefix . PLUGIN_NAME);

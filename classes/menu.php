@@ -22,15 +22,6 @@ class Menu
 
     add_submenu_page(
       'biblio_main',
-      'Biblio - Test',
-      'Test',
-      'manage_options',
-      'biblio_test',
-      array($this, 'test_page')
-    );
-    
-    add_submenu_page(
-      'biblio_main',
       'Biblio - Notes',
       'Notes',
       'manage_options',
@@ -41,10 +32,6 @@ class Menu
 
   public function main_page() {
     load_template(TEMPLATES_DIR . 'read.php');
-  }
-
-  public function test_page() {
-    load_template(TEST_DIR . 'database_handler_test.php');
   }
 
   public function notes_page() {
