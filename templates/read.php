@@ -33,6 +33,19 @@ function handle_delete() {
   }
 }
 
+function handle_update() {
+  $read = new Read(intval($_POST['id']));
+  if ($read->is_valid) {
+    $read['status'] = $_POST['status'];
+    if ($read->update()) {
+      $title_author = '<b>' . $read['title'] . '</b> by ' . $read['author']);
+      notice("Updated status sucessfully for $title_author."
+    } else {
+      error("An error occured updating $title_author");
+    }
+  }
+}
+
 if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
 {
   switch ($_POST['action']) {
