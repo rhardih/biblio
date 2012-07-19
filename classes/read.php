@@ -19,7 +19,7 @@ class Read extends DatabaseResource
 
   // Public: returns all readings of certain status
   //
-  // $status - one of (Read::Active, Read::Inactive, Read::Done)
+  // $status - one of (Read::Begun, Read::Done)
   //
   // Returns void.
   public static function all($status) {
