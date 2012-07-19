@@ -41,21 +41,13 @@ class DatabaseResource extends ArrayObject {
     }
   }
 
-  public function update($params) {
-    $tmp = array();
-    array_walk(
-      $params,
-      create_function(
-        '$val,$key,$result',
-        '$result[]="$key = \'$val\'";'
-      ),
-      &$tmp
-    );
+  public function update($params = null) {
+    $values = $params ? $params : (array) $this;
 
     return $this->wpdb->update(
       DB_TABLE_NAME,
-      $params,
-      array('id' => $this->id)
+      $values,
+      array( 'id' => $this->id)
     );
   }
 
