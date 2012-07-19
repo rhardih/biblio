@@ -3,9 +3,8 @@
 class Read extends DatabaseResource
 {
 
-  const Active   = 0;
-  const Inactive = 1;
-  const Done     = 2;
+  const Begun = 0;
+  const Done  = 1;
 
   function __construct($arg) {
     if (is_int($arg)) { // id
