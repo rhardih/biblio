@@ -21,7 +21,12 @@ function handle_create() {
 }
 
 function handle_delete() {
-  notice('Deleted succesfully!');
+  $read = new Read(intval($_POST['id']));
+  if($read->delete()) {
+    notice('Deleted succesfully!');
+  } else {
+    error('An error occured deleting <b>' . $read['title'] . '</b> by ' . $read['author']);
+  }
 }
 
 if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
