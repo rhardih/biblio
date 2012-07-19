@@ -16,7 +16,6 @@ class Read extends DatabaseResource
       }
       parent::__construct();
     }
-    error_log(print_r((array)$this, true));
   }
 
   // Public: returns all readings of certain status
