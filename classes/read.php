@@ -10,7 +10,7 @@ class Read extends DatabaseResource
   function __construct($arg) {
     if (is_int($arg)) { // id
       parent::__construct($arg);
-    } elseif (is_array($arg)) {
+    } elseif (is_object($arg) || is_array($arg)) {
       foreach ($arg as $attribute => $value) {
         $this[$attribute] = $value;
       }
@@ -27,15 +27,19 @@ class Read extends DatabaseResource
 
     global $wpdb;
 
-    $sql = sprintf("SELECT * FROM %s WHERE status = %s;",
+    $sql = sprintf("SELECT * FROM %s WHERE status = %d;",
       DB_TABLE_NAME,
       $status
     );
 
-    $reads = $wpdb->get_results($sql);
-    foreach($reads as $read) {
+    $results = $wpdb->get_results($sql);
+    $reads = array();
+
+    foreach($results as $read) {
       $reads[] = new Read($read);
     }
+    //error_log(print_r($reads, true));
+
     return $reads;
   }
 }
