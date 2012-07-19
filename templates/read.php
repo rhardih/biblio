@@ -106,17 +106,23 @@ if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
       </tbody>
     </table>
     <input type="hidden" name="action" value="create" />
-<?php
-wp_nonce_field('read', 'biblio_nonce');
-submit_button('Submit');
-?>
+    <?php
+    wp_nonce_field('read', 'biblio_nonce');
+    submit_button('Submit');
+    ?>
   </form>
 
   <hr />
 
   <h3>Current readings</h3>
-  <?php $readings = Read::all(Read::Begun); ?>
-  <?php include(TEMPLATES_DIR . 'read/_readings.php'); ?>
+  <?php
+  $readings = Read::all(Read::Begun);
+  if(count($readings) > 0) { 
+    include(TEMPLATES_DIR . 'read/_readings.php');
+  } else {
+    echo 'No current readings.';
+  }
+  ?>
 
   <h3>Finished readings</h3>
   <?php $readings = Read::all(Read::Done); ?>
