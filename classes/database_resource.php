@@ -60,11 +60,11 @@ class DatabaseResource extends ArrayObject {
   }
 
   public function delete() {
-    $this->sql = sprintf(
-      "DELETE FROM %s WHERE id = %s;",
-      "whatever",
+    $prepared_query = $this->wpdb->prepare(
+      'DELETE FROM ' . DB_TABLE_NAME . ' WHERE id = %d;',
       $this->id
     );
+    return $this->wpdb->query($prepared_query);
   }
 
 }
