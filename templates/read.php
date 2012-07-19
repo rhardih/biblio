@@ -138,5 +138,8 @@ submit_button('Submit');
     </div>
   </div>
   <h3>Past readings</h3>
+  <div class="attribution">
+    Icons by <a href="http://glyphicons.com">glyphicons.com</a>.
+  </div>
 </div>
 
