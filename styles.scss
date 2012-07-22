@@ -34,74 +34,84 @@
 $cell_width: 200px;
 $border-color: #ccc;
 
-div.readings_wrapper {
-  div#readings {
-    max-width: 75%;
-    div.reading_wrapper {
+div.biblio {
+  div.readings_wrapper {
+    div#readings {
+      max-width: 75%;
+      div.reading_wrapper {
 
-      margin: 0px 20px 20px 0px;
-      float: left;
+        margin: 0px 20px 20px 0px;
+        float: left;
 
-      div.reading {
-        position: relative;
-        z-index: 1;
-        border: 1px solid $border-color;
-        width: $cell_width;
-        height: 300px;
-        display: table-cell;
-        vertical-align: middle;
-        text-align: center;
-        padding: 0px 20px 0px 20px;
-        @include border_radius(3px);
-
-        &:hover {
-          border: 1px solid darken($border-color, 8%);
-        }
-
-        div.title_author_wrapper {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          padding: 0px 10px;
-          @include border_box;
-
-          h4 {
-            margin-bottom: 0;
-          }
-
-          p.author {
-            margin-top: 0;
-          }
-        }
-
-        img {
-          max-width: 150px;
-          max-height: 150px;
-        }
-
-        div.placeholder {
+        div.reading {
+          position: relative;
+          z-index: 1;
+          border: 1px solid $border-color;
+          width: $cell_width;
+          height: 300px;
           display: table-cell;
           vertical-align: middle;
-          height: 150px;
-          width: $cell_width;
-        }
+          text-align: center;
+          padding: 0px 20px 0px 20px;
+          @include border_radius(3px);
 
-        div.actions {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          padding: 10px 0px;
+          &:hover {
+            border: 1px solid darken($border-color, 8%);
+          }
 
-          form {
-            display: inline;
-            input {
+          div.title_author_wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 0px 10px;
+            @include border_box;
+
+            h4 {
+              margin-bottom: 0;
+            }
+
+            p.author {
+              margin-top: 0;
+            }
+          }
+
+          img {
+            max-width: 150px;
+            max-height: 150px;
+          }
+
+          div.placeholder {
+            display: table-cell;
+            vertical-align: middle;
+            height: 150px;
+            width: $cell_width;
+          }
+
+          div.actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 0px;
+
+            form {
               display: inline;
+              input {
+                display: inline;
+              }
             }
           }
         }
       }
     }
+  }
+
+  table.widefat {
+    width: 50%;
+  }
+
+  table tr th.author {
+    width: 33%;
   }
 }
