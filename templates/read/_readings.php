@@ -37,7 +37,11 @@
           $text = 'Delete';
           include('_action_button.php');
           ?>
-          <a href="<?php echo http_build_query($_GET) ?>">Notes</a>
+
+          <?php $_GET['page'] = 'biblio_notes'; ?>
+          <?php $_GET['action'] = 'show'; ?>
+          <?php $_GET['read_id'] = $read['id']; ?>
+          <a href="<?php echo biblio_url($_GET); ?>">Notes</a>
         </div>
       </div>
     </div>
