@@ -13,7 +13,7 @@ class Menu
   public function add_pages()
   {
     add_menu_page(
-      'Biblio - What are you reading?',
+      'Biblio - Your reading',
       'Biblio',
       'manage_options',
       'biblio_main',
@@ -22,7 +22,7 @@ class Menu
 
     add_submenu_page(
       'biblio_main',
-      'Biblio - Notes',
+      'Biblio - Notes overview',
       'Notes',
       'manage_options',
       'biblio_notes',
