@@ -20,25 +20,23 @@
           <?php
           switch ($reading['status']) {
           case Read::Begun:
+            $action = 'update';
             $status_value = Read::Done;
             $text = 'Finish';
             include('_action_button.php');
             break;
           case Read::Done:
+            $action = 'update';
             $status_value = Read::Begun;
             $text = 'Reread';
             include('_action_button.php');
             break;
           }
+
+          $action = 'delete';
+          $text = 'Delete';
+          include('_action_button.php');
           ?>
-          <form action="?page=biblio_main" method="post">
-            <input type="hidden" name="action" value="delete" />
-            <a class="delete" href="" data-title="<?php echo $reading['title']; ?>" data-author="<?php echo $reading['author']; ?>">
-              Delete
-            </a>
-            <input type="hidden" name="id" value="<?php echo $reading['id']; ?>" />
-            <?php wp_nonce_field('read', 'biblio_nonce'); ?>
-          </form>
           <a href="<?php echo http_build_query($_GET) ?>">Notes</a>
         </div>
       </div>

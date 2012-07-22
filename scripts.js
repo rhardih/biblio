@@ -1,6 +1,6 @@
 ;(function($) {
   $(function() {
-    $("a.delete").click(function() {
+    $('form.delete').submit(function() {
       var msg = [
         "Are you sure you want to delete ",
         $(this).data("title"),
@@ -9,10 +9,7 @@
         "?"
       ].join("");
 
-      if (confirm(msg)) {
-        $(this).closest("form").submit();
-      }
-      return false;
+      return confirm(msg);
     });
   });
 })(jQuery);
