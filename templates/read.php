@@ -65,9 +65,8 @@ if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
 
 ?>
 
-<div class="wrap">
-  <h2>Biblio</h2>
-
+<div class="wrap biblio">
+  <h2><?php echo get_admin_page_title(); ?></h2>
   <hr />
 
   <h3>New read?</h3>
