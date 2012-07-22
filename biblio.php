@@ -117,5 +117,7 @@ function notice($message) {
   echo "<div class=\"updated\"><p>$message</p></div>";
 }
 
-
+function biblio_url($params) {
+  return admin_url('admin.php?') . http_build_query($params);
+}
 
