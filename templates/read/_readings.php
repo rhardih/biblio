@@ -42,6 +42,9 @@
           <?php $_GET['action'] = 'show'; ?>
           <?php $_GET['read_id'] = $read['id']; ?>
           <a href="<?php echo biblio_url($_GET); ?>">Notes</a>
+          <?php if ($read['link'] !== '') { ?>
+            <a href="<?php echo $read['link']; ?>">Link</a>
+          <?php } ?>
         </div>
       </div>
     </div>
