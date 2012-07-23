@@ -9,7 +9,8 @@ function handle_create() {
     $read = new Read(array(
       'title' => $_POST['title'],
       'author' => $_POST['author'],
-      'url' => $_POST['url']
+      'link' => $_POST['link'],
+      'illustration' => $_POST['illustration']
     ));
 
     if ($read->create()) {
