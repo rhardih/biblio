@@ -94,13 +94,6 @@ function check_install() {
 
 new Menu();
 
-// Add custom css
-function add_custom_css() {
-    $url = BIBLIO_PLUGIN_URL . '/styles.css';
-    echo "<link rel='stylesheet' type='text/css' href='$url' />\n";
-}
-add_action('admin_head', 'add_custom_css');
-
 // Utility methods
 function error($message) {
   echo "<div class=\"error\"><p>$message</p></div>";
@@ -113,4 +106,22 @@ function notice($message) {
 function biblio_url($params) {
   return admin_url('admin.php?') . http_build_query($params);
 }
+
+function biblio_styles() {
+  wp_enqueue_style('thickbox');
+  wp_enqueue_style('biblio-styles', BIBLIO_PLUGIN_URL . '/styles.css');
+}
+add_action('admin_print_styles', 'biblio_styles');
+
+function biblio_scripts() {
+  wp_enqueue_script('media-upload');
+  wp_enqueue_script('thickbox');
+  wp_register_script(
+    'biblio-scripts',
+    BIBLIO_PLUGIN_URL . '/scripts.js',
+    array('jquery', 'media-upload', 'thickbox')
+  );
+  wp_enqueue_script('biblio-scripts');
+}
+add_action('admin_print_scripts', 'biblio_scripts');
 
