@@ -8,8 +8,8 @@
           <p class="author"><?php echo $read['author']; ?></p>
         </div>
         <div class="illustration">
-          <?php if($read['url']) { ?>
-          <img src="<?php echo $read['url'] ?>" alt="Book" />
+          <?php if($read['illustration']) { ?>
+          <img src="<?php echo $read['illustration'] ?>" alt="Book" />
           <?php } else { ?>
           <div class="placeholder">
             <img src="<?php echo BIBLIO_PLUGIN_URL . 'images/glyphicons_351_book_open.png' ?>" alt="Book" class="placeholder" />
