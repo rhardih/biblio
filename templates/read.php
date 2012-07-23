@@ -132,13 +132,21 @@ if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
   if(count($readings) > 0) { 
     include(TEMPLATES_DIR . 'read/_readings.php');
   } else {
-    echo 'No current readings.';
+    echo '<p>No current readings.</p>';
   }
   ?>
 
   <h3>Finished readings</h3>
-  <?php $readings = Read::all(Read::Done); ?>
-  <?php include(TEMPLATES_DIR . 'read/_readings.php'); ?>
+  <?php
+  $readings = Read::all(Read::Done);
+  if(count($readings) > 0) {
+    include(TEMPLATES_DIR . 'read/_readings.php');
+  } else {
+    echo '<p>No finished readings.</p>';
+  }
+  ?>
+
+  <hr />
 
   <div class="attribution">
     Icons by <a href="http://glyphicons.com">glyphicons.com</a>.
