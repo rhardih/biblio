@@ -42,7 +42,8 @@ class DatabaseHandler
       author VARCHAR(255) NOT NULL DEFAULT '',
       title VARCHAR(255) NOT NULL DEFAULT '',
       notes TEXT NOT NULL DEFAULT '',
-      url VARCHAR(2048) NOT NULL DEFAULT '',
+      link VARCHAR(2048) NOT NULL DEFAULT '',
+      illustration VARCHAR(2048) NOT NULL DEFAULT '',
       status TINYINT NOT NULL DEFAULT 0,
       CONSTRAINT TitleAuthor UNIQUE (title, author)
     ) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_general_ci;";
