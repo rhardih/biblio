@@ -2,23 +2,29 @@
 
 echo '<pre>' . print_r($_POST, true) . '</pre>';
 
-if ($_POST) {
-  $read = new Read($_POST['read']);
+function handle_create() {
+  $read = new Read(intval($_POST['read_id']));
   if ($read->is_valid) {
     $params = array(
       'notes' => $_POST['content']
     );
-    if($read->update($params) == false) {
+    if($read->update($params)) {
+      notice('Updated!');
+    } else {
       error_log('update failed');
     }
   } else {
-?>
+    error('No Read by that id.');
+  }
+}
 
-<div class="error">
-  <p>No Read by that id.</p>
-</div>
-
-<?php
+if ($_POST && check_admin_referer('note', 'biblio_nonce')) {
+  switch ($_POST['action']) {
+  case 'update':
+    handle_create();
+    break;
+  default:
+    error('Unknown action.');
   }
 }
 ?>
