@@ -91,10 +91,22 @@ if ( $_POST && check_admin_referer('read', 'biblio_nonce') )
         </tr>
         <tr valign="top">
           <th scope="row">
-            <label for="url">URL</label>
+            <label for="link">Link</label>
           </th>
           <td>
-            <input id="url" type="text" class="regular-text" name="url" value="<?php echo $_POST["url"]; ?>">
+            <input id="link" type="text" class="regular-text" name="link" value="<?php echo $_POST["link"]; ?>">
+          </td>
+        </tr>
+        <tr valign="top">
+          <th scope="row">
+            <label for="illustration">Illustration</label>
+          </th>
+          <td>
+            <input id="illustration" class="regular-text" type="text" name="illustration" />
+            <br />
+            <small>Enter a URL or upload an image.</small>
+            <br />
+            <input id="illustration_button" class="button-secondary" type="button" value="Upload" />
           </td>
         </tr>
         <tr>
