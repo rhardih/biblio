@@ -22,7 +22,7 @@ class Menu
 
     add_submenu_page(
       'biblio_main',
-      'Biblio - Notes overview',
+      'Biblio - Notes',
       'Notes',
       'manage_options',
       'biblio_notes',

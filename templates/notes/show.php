@@ -3,12 +3,10 @@ $read = new Read(intval($_GET['read_id']));
 if ($read->is_valid) {
 ?>
 
-<h3>Notes</h3>
+<h3><?php echo $read['title'] ?> - <?php echo $read['author'] ?></h3>
+<br />
+
 <form method="post" action="?page=biblio_notes">
-  <p>
-  <b><?php echo $read['title'] ?></b><br />
-  <?php echo $read['author'] ?>
-  </p>
   <div id="poststuff">
     <?php the_editor($read['notes']); ?>
   </div>
