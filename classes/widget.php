@@ -12,7 +12,6 @@ class BiblioWidget extends WP_Widget {
 	function widget( $args, $instance ) {
 		extract( $args );
 
-		/* Our variables from the widget settings. */
 		$title = apply_filters('widget_title', $instance['title'] );
 		$max_columns = $instance['max_columns'];
 		$sex = $instance['sex'];
@@ -21,10 +20,8 @@ class BiblioWidget extends WP_Widget {
     $readings = Read::all(Read::Begun);
 
     if(count($readings) > 0) {
-		  /* Before widget (defined by themes). */
 		  echo $before_widget;
       
-		  /* Display the widget title if one was input (before and after defined by themes). */
 		  if ( $title )
 		  	echo $before_title . $title . $after_title;
 
