@@ -125,3 +125,9 @@ function biblio_scripts() {
 }
 add_action('admin_print_scripts', 'biblio_scripts');
 
+// Add widget
+add_action( 'widgets_init', 'init_biblio_widget' );
+
+function init_biblio_widget() {
+	register_widget( 'BiblioWidget' );
+}
