@@ -17,21 +17,35 @@ class BiblioWidget extends WP_Widget {
 		$max_columns = $instance['max_columns'];
 		$sex = $instance['sex'];
 		$show_sex = isset( $instance['show_sex'] ) ? $instance['show_sex'] : false;
+    
+    $readings = Read::all(Read::Begun);
 
-		/* Before widget (defined by themes). */
-		echo $before_widget;
+    if(count($readings) > 0) {
+		  /* Before widget (defined by themes). */
+		  echo $before_widget;
+      
+		  /* Display the widget title if one was input (before and after defined by themes). */
+		  if ( $title )
+		  	echo $before_title . $title . $after_title;
 
-		/* Display the widget title if one was input (before and after defined by themes). */
-		if ( $title )
-			echo $before_title . $title . $after_title;
+      foreach ( $readings as $read ) {
+        if ($read['link'] !== '') {
+          echo '<a href="' .  $read['link'] . '">';
+        }
 
-		/* Display name from widget settings if one was input. */
-		if ( $max_columns )
-      printf( '<p>' . __('Hello. My name is %1$s.', 'example') . '</p>', $max_columns ); ?>
+        echo '<img src="' . $read['illustration'] . '" /><br />';
+        echo '<b>' . $read['title'] . '</b>';
 
+        if ($read['link'] !== '') {
+          echo '</a>';
+        }
 
-    <?php
-		echo $after_widget;
+        echo ' - ' . $read['author'] . '<br /><br />';
+
+      }
+
+		  echo $after_widget;
+    }
 	}
 
 	function update( $new_instance, $old_instance ) {
