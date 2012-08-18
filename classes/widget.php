@@ -59,7 +59,7 @@ class BiblioWidget extends WP_Widget {
 	}
 
 	function form( $instance ) {
-		$defaults = array( 'title' => 'Current readings', 'max_columns' => '2', 'sex' => 'male', 'show_sex' => true );
+		$defaults = array( 'title' => 'Current readings');
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
 
 		<p>
