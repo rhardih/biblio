@@ -69,7 +69,6 @@ function biblio_activate() {
   }
 }
 
-
 function biblio_deactivate() {
   global $dh;
   delete_option("biblio_db_version");
@@ -78,7 +77,6 @@ function biblio_deactivate() {
 
 register_activation_hook(__FILE__, 'biblio_activate');
 register_deactivation_hook(__FILE__, 'biblio_deactivate');
-
 
 function check_install() {
   $biblio_db_version = get_option('biblio_db_version');
@@ -90,7 +88,6 @@ function check_install() {
 }
 
 //check_install();
-
 
 new Menu();
 
@@ -107,12 +104,14 @@ function biblio_url($params) {
   return admin_url('admin.php?') . http_build_query($params);
 }
 
+// Add custom css for admin pages
 function biblio_styles() {
   wp_enqueue_style('thickbox');
   wp_enqueue_style('biblio-styles', BIBLIO_PLUGIN_URL . '/styles.css');
 }
 add_action('admin_print_styles', 'biblio_styles');
 
+// Add custom javascript for admin pages
 function biblio_scripts() {
   wp_enqueue_script('media-upload');
   wp_enqueue_script('thickbox');
