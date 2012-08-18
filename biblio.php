@@ -126,7 +126,12 @@ add_action('admin_print_scripts', 'biblio_scripts');
 
 // Add widget
 add_action( 'widgets_init', 'init_biblio_widget' );
-
 function init_biblio_widget() {
 	register_widget( 'BiblioWidget' );
 }
+
+// Add custom css for widget
+function widget_styles() {
+  wp_enqueue_style( 'widget-styles', BIBLIO_PLUGIN_URL . '/widget.css' );
+}
+add_action( 'wp_enqueue_scripts', 'widget_styles' );
