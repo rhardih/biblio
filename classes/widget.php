@@ -26,19 +26,24 @@ class BiblioWidget extends WP_Widget {
 		  	echo $before_title . $title . $after_title;
 
       foreach ( $readings as $read ) {
+
+        echo '<div class="reading">';
+
         if ($read['link'] !== '') {
           echo '<a href="' .  $read['link'] . '">';
         }
 
-        echo '<img src="' . $read['illustration'] . '" /><br />';
+        if ($read['illustration']) {
+          echo '<img src="' . $read['illustration'] . '" />';
+        }
         echo '<b>' . $read['title'] . '</b>';
 
         if ($read['link'] !== '') {
           echo '</a>';
         }
 
-        echo '<br />' . $read['author'] . '<br /><br />';
-
+        echo '<br />' . $read['author'];
+        echo '</div>';
       }
 
 		  echo $after_widget;
