@@ -37,7 +37,7 @@ class BiblioWidget extends WP_Widget {
           echo '</a>';
         }
 
-        echo ' - ' . $read['author'] . '<br /><br />';
+        echo '<br />' . $read['author'] . '<br /><br />';
 
       }
 
