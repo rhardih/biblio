@@ -1,12 +1,12 @@
 <?php
 /*
  * Plugin Name: biblio
- * Plugin URI: http://URI_Of_Page_Describing_Plugin_and_Updates
+ * Plugin URI: 
  * Description: Simple plugin to showcase your personal reading interesests, library etc.
  * Version: 0.1
  * Author: René Hansen
  * Author URI: http://éncoder.dk
- * License: A "Slug" license name e.g. GPL2
+ * License: GPL2
  *
  * Copyright 2012  René Hansen  (email : biblio@éncoder.dk)
  *
