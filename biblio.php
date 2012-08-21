@@ -2,7 +2,7 @@
 /*
  * Plugin Name: biblio
  * Plugin URI: 
- * Description: Simple plugin to showcase your personal reading interesests, library etc.
+ * Description: Simple plugin to showcase your personal reading interests, library etc.
  * Version: 0.1
  * Author: René Hansen
  * Author URI: http://éncoder.dk
