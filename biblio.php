@@ -5,7 +5,7 @@
  * Description: Simple plugin to showcase your personal reading interests, library etc.
  * Version: 0.1
  * Author: René Hansen
- * Author URI: http://éncoder.dk
+ * Author URI: http://éncoder.dk/blog
  * License: GPL2
  *
  * Copyright 2012  René Hansen  (email : biblio@éncoder.dk)
